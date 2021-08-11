@@ -1,0 +1,46 @@
+.App {
+  text-align: center;
+  margin-top: 15vh;
+}
+
+.App-header {
+  font-size: 22pt;
+}
+
+form {
+  background-color: aquamarine;
+  padding: 4%;
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input, textarea {
+  padding: 6%;
+  margin-top: 20px;
+  width: 80%;
+  font-size: 15pt;
+  font-style: italic;
+}
+
+button {
+  padding: 4%;
+  margin-top: 20px;
+  width: 90%;
+  font-size: 15pt;
+  background-color: mediumaquamarine;
+}
+
+.success-msg {
+  background-color: white;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2%;
+  margin-top: 20px;
+  display: none;
+}
+
+.success-msg-appear {
+  display: block;
+}
