@@ -40,6 +40,13 @@ export default class Form extends Component {
     formSubmit = (e) => {
         e.preventDefault();
 
+        this.setState({
+            sent: true
+        },
+
+            // this is the function called to reset the form to original after submitting the message
+            this.resetForm())
+
         let data = {
             name: this.state.name,
             email: this.state.email,
@@ -49,12 +56,7 @@ export default class Form extends Component {
         // create a post request using axios
         axios.post('/api/forma', data)
             .then(res => {
-                this.setState({
-                    sent: true
-                },
 
-                    // this is the function called to reset the form to original after submitting the message
-                    this.resetForm())
             })
             .catch(() => {
                 // in case of error, log an error message
@@ -115,11 +117,11 @@ export default class Form extends Component {
                         required
                     ></textarea>
                     <br></br>
-                    <div className={this.state.sent ? 'msgAppear' : 'msg'}>
+                    <div className={this.state.sent ? 'msg msgAppear' : 'msg'}>
                         <h1>Message has been sent!</h1>
                     </div>
                     <br></br>
-                    <button>Submit</button>
+                    <button type='submit'>Submit</button>
                 </form>
             </div>
         )
