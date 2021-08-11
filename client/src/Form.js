@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 
+// react-alert
+// import { withAlert } from 'react-alert';
+
+// axios
 import axios from 'axios';
 
 export default class Form extends Component {
+
     // create states here
     state = {
         name: '',
         email: '',
         message: '',
-        sent: false,
-        successMsg: ''
-    }
+        sent: false
+    };
 
     // handle changes in inputs in form
     handleName = (e) => {
@@ -46,11 +50,7 @@ export default class Form extends Component {
         axios.post('/api/forma', data)
             .then(res => {
                 this.setState({
-                    sent: true,
-                    successMsg:
-                            <div>
-                                <h1>Message Sent!</h1>
-                            </div>
+                    sent: true
                 },
 
                     // this is the function called to reset the form to original after submitting the message
@@ -115,7 +115,9 @@ export default class Form extends Component {
                         required
                     ></textarea>
                     <br></br>
-                    {this.state.successMsg}
+                    <div className={this.state.sent ? 'msgAppear' : 'msg'}>
+                        <h1>Message has been sent!</h1>
+                    </div>
                     <br></br>
                     <button>Submit</button>
                 </form>
