@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const path = require('path');
 
 require("dotenv").config();
 
@@ -10,6 +11,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
+
+app.use(function (req, res) {
+        res.sendFile(path.join(__dirname, "../client/build/index.html"));
+    });
 
 app.get('/', () => {
     resizeBy.send('Welcome to my forma!');
@@ -24,8 +34,8 @@ app.post('/api/forma', (req, res) => {
         port: 587,
         secure: false,
         auth: {
-            user: "maryum@mayfairitconsultancy.com",
-            pass: "h7xV2GJHInBwqyLF"
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD
         }
     });
 
@@ -53,14 +63,17 @@ app.post('/api/forma', (req, res) => {
 
     smtpTransport.sendMail(mailOptions, (error, response) => {
         if (error) {
-            response.send(error);
+            console.log(response);
             console.log(error);
+            response.send(error);
         }
 
         else {
             response.send('Success!');
         }
-    })
+    });
+
+    console.log('Sent email!');
 
     smtpTransport.close();
 });
